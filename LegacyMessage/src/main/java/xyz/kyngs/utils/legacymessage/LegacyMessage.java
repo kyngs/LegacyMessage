@@ -33,16 +33,33 @@ public class LegacyMessage {
         REPLACES.put("r", "<reset>");
     }
 
+    /**
+     * Converts legacy message to MiniMessage using § for colors
+     *
+     * @param legacy Legacy message
+     * @return MiniMessage-compatible format
+     */
     public static String fromLegacy(String legacy) {
+        return fromLegacy(legacy, "§");
+    }
+
+    /**
+     * Converts legacy message to MiniMessage
+     *
+     * @param legacy Legacy message
+     * @param character Character used for legacy formatting
+     * @return MiniMessage-compatible format
+     */
+    public static String fromLegacy(String legacy, String character) {
         for (Map.Entry<String, String> entry : REPLACES.entrySet()) {
-            legacy = legacy.replace("§" + entry.getKey(), entry.getValue());
+            legacy = legacy.replace(character + entry.getKey(), entry.getValue());
         }
 
         //FIXME: Maybe use regex for this?
         int lastMatch = 0;
 
         do {
-            int index = legacy.indexOf("§#", lastMatch);
+            int index = legacy.indexOf(character + "#", lastMatch);
 
             if (index == -1) break;
 
