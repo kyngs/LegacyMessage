@@ -25,5 +25,3 @@ public class Test {
     }
 }
 ```
-
-**Please, do not forget that this util only works if you use § as the legacy character**
